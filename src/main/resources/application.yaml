@@ -1,7 +1,7 @@
 spring:
   security:
     jwt:
-      secret: "${JWT_SECRET:TuncIRVFPUqC4x+enb6rWxWVy+abix4rS9kjhbFG+tI=}"
+      secret: "${JWT_SECRET}"
       expiration-seconds: ${JWT_EXPIRATION_SECONDS:900}
   application:
     name: doctor-appointment-system
