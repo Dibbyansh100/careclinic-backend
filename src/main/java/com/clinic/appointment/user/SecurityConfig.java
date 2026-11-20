@@ -34,9 +34,10 @@ import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
 
 @Configuration
-public class SecurityConfig {
-	@Value("${spring.security.jwt.secret:TuncIRVFPUqC4x+enb6rWxWVy+abix4rS9kjhbFG+tI=}")
-	private String secret;
+public class SecurityConfig { 
+    @Value("${spring.security.jwt.secret}")
+    private String secret;
+
 
 	@Bean
 	public SecretKey jwtSecretKey() {
