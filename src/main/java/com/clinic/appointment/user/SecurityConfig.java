@@ -39,14 +39,24 @@ public class SecurityConfig {
     private String secret;
 
 
-	@Bean
-	public SecretKey jwtSecretKey() {
-		String effectiveSecret = (secret != null && !secret.isBlank())
-				? secret
-				: "TuncIRVFPUqC4x+enb6rWxWVy+abix4rS9kjhbFG+tI=";
-		byte[] keyBites = effectiveSecret.getBytes(StandardCharsets.UTF_8);
-		return new SecretKeySpec(keyBites, "HmacSHA256");
-	}
+	 
+@Bean
+public SecretKey jwtSecretKey() {
+    if (secret == null || secret.isBlank()) {
+        throw new IllegalStateException("JWT secret is required");
+    }
+
+    byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+
+    if (keyBytes.length < 32) {
+        throw new IllegalStateException(
+            "JWT secret must be at least 32 bytes"
+        );
+    }
+
+    return new SecretKeySpec(keyBytes, "HmacSHA256");
+}
+
 
 	@Bean
 	public JwtEncoder jwtEncoder(SecretKey jwtSecretKey) {
